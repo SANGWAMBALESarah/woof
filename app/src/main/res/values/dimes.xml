@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Espacements réguliers -->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+
+    <!-- Tailles spécifiques -->
+    <dimen name="image_size">64dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+</resources>
