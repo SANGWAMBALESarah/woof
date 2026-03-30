@@ -12,4 +12,43 @@
 /captures
 .externalNativeBuild
 .cxx
+local.properties# Android Studio
 local.properties
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/kotlinc.xml
+
+# Gradle
+.gradle/
+build/
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+
+# Kotlin
+.kotlin/
+*.kt.bak
+
+# Jetpack Compose
+/.compose_cache
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+.env
+.local

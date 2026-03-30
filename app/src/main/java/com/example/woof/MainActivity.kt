@@ -4,18 +4,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.shape.CircleShape
 import com.example.woof.model.Dog
 import com.example.woof.ui.theme.WoofTheme
 
@@ -54,8 +64,45 @@ fun DogItem(
                 .padding(dimensionResource(R.dimen.padding_small)),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            DogIcon(dog.imageResourceId)
+            DogInformation(dog.nameResourceId, dog.age)
             // L'image et le texte viendront ici
         }
+    }
+}
+
+@Composable
+fun DogIcon(
+    dogIcon: Int,
+    modifier: Modifier = Modifier
+) {
+    Image(
+        painter = painterResource(dogIcon),
+        contentDescription = null,
+        modifier = modifier
+            .size(dimensionResource(R.dimen.image_size))
+            .padding(dimensionResource(R.dimen.padding_small))
+            .clip(CircleShape), // Rend l'image parfaitement ronde
+        contentScale = ContentScale.Crop // Recadre l'image pour remplir le cercle
+    )
+}
+
+@Composable
+fun DogInformation(
+    @StringRes dogName: Int,
+    dogAge: Int,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(dogName),
+            style = MaterialTheme.typography.titleLarge, // Utilise la police Montserrat Bold
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+        )
+        Text(
+            text = stringResource(R.string.years_old, dogAge),
+            style = MaterialTheme.typography.bodyMedium // Utilise la police Montserrat Regular
+        )
     }
 }
 
