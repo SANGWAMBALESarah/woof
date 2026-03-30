@@ -1,4 +1,4 @@
-git config package com.example.woof
+package com.example.woof
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
