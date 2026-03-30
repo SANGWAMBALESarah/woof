@@ -12,9 +12,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +32,9 @@ import androidx.annotation.StringRes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import com.example.woof.model.Dog
 import com.example.woof.ui.theme.WoofTheme
 
@@ -54,6 +63,9 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
+    // ÉTAT : Compose se souviendra si la carte est étendue ou non (fermé par défaut)
+    var expanded by remember { mutableStateOf(false) }
+
     // La Card utilise automatiquement la forme "medium" définie dans Shape.kt
     Card(
         modifier = modifier.padding(dimensionResource(R.dimen.padding_small))
@@ -64,9 +76,16 @@ fun DogItem(
                 .padding(dimensionResource(R.dimen.padding_small)),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            DogIcon(dog.imageResourceId)
-            DogInformation(dog.nameResourceId, dog.age)
-            // L'image et le texte viendront ici
+            DogIcon(dogIcon = dog.imageResourceId)
+            DogInformation(
+                dogName = dog.nameResourceId,
+                dogAge = dog.age,
+                modifier = Modifier.weight(1f)
+            )
+            DogItemButton(
+                expanded = expanded,
+                onClick = { expanded = !expanded }
+            )
         }
     }
 }
@@ -102,6 +121,24 @@ fun DogInformation(
         Text(
             text = stringResource(R.string.years_old, dogAge),
             style = MaterialTheme.typography.bodyMedium // Utilise la police Montserrat Regular
+        )
+    }
+}
+
+@Composable
+private fun DogItemButton(
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = if (expanded) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowUp,
+            contentDescription = stringResource(R.string.expand_button_content_description),
+            tint = MaterialTheme.colorScheme.secondary
         )
     }
 }
